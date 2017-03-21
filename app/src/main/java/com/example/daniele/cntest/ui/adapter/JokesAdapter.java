@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.rest.model.Joke;
-import com.example.daniele.cntest.rest.model.RandomJoke;
 
 import java.util.List;
 
@@ -88,7 +87,6 @@ public class JokesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case LOADING_VIEW_TYPE:
                 break;
         }
-
     }
 
     @Override

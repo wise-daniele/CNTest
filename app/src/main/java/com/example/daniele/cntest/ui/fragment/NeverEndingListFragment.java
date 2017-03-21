@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.rest.RestClient;
 import com.example.daniele.cntest.rest.model.Joke;
-import com.example.daniele.cntest.rest.model.RandomJoke;
 import com.example.daniele.cntest.rest.model.RandomJokes;
 import com.example.daniele.cntest.ui.adapter.JokesAdapter;
 
@@ -38,7 +37,6 @@ public class NeverEndingListFragment extends Fragment{
         return fragment;
     }
 
-    private FragmentListener mListener;
     private RecyclerView mJokesView;
     private List<Joke> mJokesList;
     private JokesAdapter mJokesAdapter;
@@ -107,7 +105,6 @@ public class NeverEndingListFragment extends Fragment{
 
             @Override
             public void onFailure(Call<RandomJokes> call, Throwable t) {
-                Log.d(LOG_TAG, "Error");
             }
 
         });

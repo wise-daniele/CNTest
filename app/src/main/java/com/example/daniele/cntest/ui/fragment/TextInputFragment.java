@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.rest.RestClient;
 import com.example.daniele.cntest.rest.model.RandomJoke;
-import com.example.daniele.cntest.ui.dialog.RandomJokeDialog;
 import com.example.daniele.cntest.utils.TextUtils;
 
 import retrofit2.Call;
@@ -37,7 +35,6 @@ public class TextInputFragment extends Fragment {
     private TextInputLayout mLayoutInputName;
     private EditText mEditTextName;
     private Button mButtonSubmit;
-    private RandomJokeDialog mJokeDialog;
     private FragmentListener mListener;
 
     public static TextInputFragment newInstance() {

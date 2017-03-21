@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +44,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         buttonRandomJoke = (Button) rootView.findViewById(R.id.button_random_joke);
         buttonTextInput = (Button) rootView.findViewById(R.id.button_text_input);
         buttonNeverList = (Button) rootView.findViewById(R.id.button_never_list);
-
         buttonRandomJoke.setOnClickListener(this);
         buttonTextInput.setOnClickListener(this);
         buttonNeverList.setOnClickListener(this);
-
         return rootView;
     }
 
@@ -81,7 +78,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<RandomJoke> call, Throwable t) {
-                Log.d(LOG_TAG, "Error");
+
             }
 
         });
