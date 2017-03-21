@@ -1,6 +1,7 @@
 package com.example.daniele.cntest.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,7 +35,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private Button buttonTextInput;
     private Button buttonNeverList;
     private RandomJokeDialog mJokeDialog;
-    private Activity mActivity;
+    private FragmentListener mListener;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -63,6 +64,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 getRandomJoke();
                 break;
             case R.id.button_text_input:
+                mListener.onItemSelected(TextInputFragment.FRAGMENT_TAG);
                 break;
             case R.id.button_never_list:
                 break;
@@ -100,4 +102,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mJokeDialog.setCancelable(false);
         mJokeDialog.show(ft, RandomJokeDialog.DIALOG_TAG);
     }
+
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (FragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement FragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface FragmentListener {
+
+        public void onItemSelected(String fragment);
+
+    }
+
 }

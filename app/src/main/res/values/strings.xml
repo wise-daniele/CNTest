@@ -2,11 +2,15 @@
 
     <string name="app_name">CNTest</string>
     <string name="text_dismiss">Dismiss</string>
+    <string name="text_submit">Submit</string>
 
     <!-- Main Fragment -->
     <string name="text_random_joke">Random Joke</string>
     <string name="text_text_input">Text Input</string>
     <string name="text_never_ending">Never-ending List</string>
+
+    <!-- TextInputFragment -->
+    <string name="edit_text_hint">Insert Character</string>
 
 
 </resources>

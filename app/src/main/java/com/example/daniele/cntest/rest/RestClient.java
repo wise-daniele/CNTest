@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by daniele on 20/03/17.
@@ -42,6 +44,18 @@ public class RestClient {
 
         @GET("random")
         Call<RandomJoke> getRandomJoke();
+
+        //?firstName=John&amp;lastName=Doe
+        /*
+        @GET("random")
+        Call<RandomJoke> getJokeByName(@Query("firstName") String firstName);
+        */
+
+        @GET("random")
+        Call<RandomJoke> getJokeByName(
+                @Query("firstName") String firstName,
+                @Query("lastName") String lastName
+        );
 
     }
 
