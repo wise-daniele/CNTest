@@ -42,6 +42,12 @@ public class NeverEndingListFragment extends Fragment{
     private RecyclerView mJokesView;
     private List<Joke> mJokesList;
     private JokesAdapter mJokesAdapter;
+    private LinearLayoutManager mLayoutManager;
+
+    private int mVisibleItemCount = 0;
+    private int mTotalItemCount = 0;
+    private int mPastVisiblesItems = 0;
+    private boolean mIsLoading = true;
 
     @Nullable
     @Override
@@ -49,10 +55,30 @@ public class NeverEndingListFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_never_ending_list, container, false);
 
         mJokesView = (RecyclerView) rootView.findViewById(R.id.jokes_list);
-        mJokesView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mJokesView.setLayoutManager(mLayoutManager);
         mJokesList = new ArrayList<>();
         mJokesAdapter = new JokesAdapter(getActivity(), mJokesList);
         mJokesView.setAdapter(mJokesAdapter);
+
+        mJokesView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if(dy > 0){
+                    mVisibleItemCount = mLayoutManager.getChildCount();
+                    mTotalItemCount = mLayoutManager.getItemCount();
+                    mPastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (mIsLoading){
+                        if((mVisibleItemCount + mPastVisiblesItems) >= mTotalItemCount){
+                            mIsLoading = false;
+                            getJokesList();
+                        }
+                    }
+                }
+            }
+        });
 
         getJokesList();
 
@@ -66,8 +92,16 @@ public class NeverEndingListFragment extends Fragment{
         call.enqueue(new Callback<RandomJokes>() {
             @Override
             public void onResponse(Call<RandomJokes> call, Response<RandomJokes> response) {
+                mIsLoading = true;
                 RandomJokes jokes = response.body();
-                mJokesAdapter.setJokesList(jokes.getValue());
+                if(mJokesList.size() == 0){
+                    mJokesList.addAll(jokes.getValue());
+                    mJokesList.add(null);
+                }
+                else{
+                    mJokesList.addAll(mJokesList.size() - 2, jokes.getValue());
+                }
+                mJokesAdapter.setJokesList(mJokesList);
                 mJokesAdapter.notifyDataSetChanged();
             }
 
