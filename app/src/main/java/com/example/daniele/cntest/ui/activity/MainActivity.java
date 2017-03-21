@@ -9,6 +9,7 @@ import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.ui.dialog.RandomJokeDialog;
 import com.example.daniele.cntest.ui.fragment.FragmentListener;
 import com.example.daniele.cntest.ui.fragment.MainFragment;
+import com.example.daniele.cntest.ui.fragment.NeverEndingListFragment;
 import com.example.daniele.cntest.ui.fragment.TextInputFragment;
 
 public class MainActivity extends AppCompatActivity implements FragmentListener {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
             myFragment = TextInputFragment.newInstance();
         }
         else{
-
+            myFragment = NeverEndingListFragment.newInstance();
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment_container, myFragment, fragmentTag);

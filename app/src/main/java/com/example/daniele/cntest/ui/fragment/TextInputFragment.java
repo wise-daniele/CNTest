@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +34,7 @@ public class TextInputFragment extends Fragment {
     public static final String LOG_TAG = TextInputFragment.class.getSimpleName();
     public static final String FRAGMENT_TAG = "fragment_text_input";
 
+    private TextInputLayout mLayoutInputName;
     private EditText mEditTextName;
     private Button mButtonSubmit;
     private RandomJokeDialog mJokeDialog;
@@ -48,6 +50,7 @@ public class TextInputFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_text_input, container, false);
 
+        mLayoutInputName = (TextInputLayout) rootView.findViewById(R.id.layout_input_name);
         mEditTextName = (EditText) rootView.findViewById(R.id.edit_text_name);
         mButtonSubmit = (Button) rootView.findViewById(R.id.button_submit);
 
