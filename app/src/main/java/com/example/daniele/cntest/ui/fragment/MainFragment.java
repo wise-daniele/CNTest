@@ -1,11 +1,9 @@
 package com.example.daniele.cntest.ui.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.rest.RestClient;
 import com.example.daniele.cntest.rest.model.RandomJoke;
-import com.example.daniele.cntest.ui.dialog.RandomJokeDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +31,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private Button buttonRandomJoke;
     private Button buttonTextInput;
     private Button buttonNeverList;
-    private RandomJokeDialog mJokeDialog;
     private FragmentListener mListener;
 
     public static MainFragment newInstance() {
@@ -79,7 +75,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<RandomJoke> call, Response<RandomJoke> response) {
                 String textJoke = response.body().getValue().getJoke();
-                onJokeReceived(textJoke);
+                mListener.onJokeReceived(textJoke);
             }
 
             @Override
@@ -88,19 +84,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
 
         });
-    }
-
-    public void onJokeReceived(String textJoke){
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(RandomJokeDialog.DIALOG_TAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        mJokeDialog = RandomJokeDialog.newInstance(textJoke);
-        mJokeDialog.setCancelable(false);
-        mJokeDialog.show(ft, RandomJokeDialog.DIALOG_TAG);
     }
 
     @Override
@@ -118,12 +101,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public interface FragmentListener {
-
-        public void onItemSelected(String fragment);
-
     }
 
 }

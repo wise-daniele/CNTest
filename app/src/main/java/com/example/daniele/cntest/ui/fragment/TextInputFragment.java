@@ -1,5 +1,6 @@
 package com.example.daniele.cntest.ui.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ public class TextInputFragment extends Fragment {
     private EditText mEditTextName;
     private Button mButtonSubmit;
     private RandomJokeDialog mJokeDialog;
+    private FragmentListener mListener;
 
     public static TextInputFragment newInstance() {
         TextInputFragment fragment = new TextInputFragment();
@@ -74,7 +76,7 @@ public class TextInputFragment extends Fragment {
             @Override
             public void onResponse(Call<RandomJoke> call, Response<RandomJoke> response) {
                 String textJoke = response.body().getValue().getJoke();
-                onJokeReceived(textJoke);
+                mListener.onJokeReceived(textJoke);
             }
 
             @Override
@@ -83,19 +85,6 @@ public class TextInputFragment extends Fragment {
             }
 
         });
-    }
-
-    public void onJokeReceived(String textJoke){
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(RandomJokeDialog.DIALOG_TAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        mJokeDialog = RandomJokeDialog.newInstance(textJoke);
-        mJokeDialog.setCancelable(false);
-        mJokeDialog.show(ft, RandomJokeDialog.DIALOG_TAG);
     }
 
     public void showErrorDialog(){
@@ -108,6 +97,23 @@ public class TextInputFragment extends Fragment {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (FragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement FragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }
