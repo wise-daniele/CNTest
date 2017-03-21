@@ -45,12 +45,6 @@ public class RestClient {
         @GET("random")
         Call<RandomJoke> getRandomJoke();
 
-        //?firstName=John&amp;lastName=Doe
-        /*
-        @GET("random")
-        Call<RandomJoke> getJokeByName(@Query("firstName") String firstName);
-        */
-
         @GET("random")
         Call<RandomJoke> getJokeByName(
                 @Query("firstName") String firstName,

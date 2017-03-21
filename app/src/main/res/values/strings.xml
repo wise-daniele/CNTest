@@ -10,7 +10,7 @@
     <string name="text_never_ending">Never-ending List</string>
 
     <!-- TextInputFragment -->
-    <string name="edit_text_hint">Insert Character</string>
+    <string name="edit_text_hint">Insert Character Name</string>
 
 
 </resources>

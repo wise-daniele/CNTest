@@ -1,9 +1,11 @@
 package com.example.daniele.cntest.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.example.daniele.cntest.R;
 import com.example.daniele.cntest.rest.RestClient;
 import com.example.daniele.cntest.rest.model.RandomJoke;
 import com.example.daniele.cntest.ui.dialog.RandomJokeDialog;
+import com.example.daniele.cntest.utils.TextUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,9 +52,14 @@ public class TextInputFragment extends Fragment {
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mEditTextName.getText().toString();
-                String[] nameSplitted = name.split(" ");
-                getJokeByName(nameSplitted[0], nameSplitted[1]);
+                String name = mEditTextName.getText().toString().trim();
+                if(!TextUtils.isNameValid(name)){
+                    showErrorDialog();
+                }
+                else{
+                    String[] nameSplitted = TextUtils.getNameSplitted(name);
+                    getJokeByName(nameSplitted[0], nameSplitted[1]);
+                }
             }
         });
 
@@ -88,6 +96,18 @@ public class TextInputFragment extends Fragment {
         mJokeDialog = RandomJokeDialog.newInstance(textJoke);
         mJokeDialog.setCancelable(false);
         mJokeDialog.show(ft, RandomJokeDialog.DIALOG_TAG);
+    }
+
+    public void showErrorDialog(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Error")
+                .setMessage("Input text must be in the form \"<name> <lastname>\"")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
 }
