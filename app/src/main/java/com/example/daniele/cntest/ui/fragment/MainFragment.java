@@ -63,6 +63,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 mListener.onItemSelected(TextInputFragment.FRAGMENT_TAG);
                 break;
             case R.id.button_never_list:
+                mListener.onItemSelected(NeverEndingListFragment.FRAGMENT_TAG);
                 break;
         }
     }
@@ -74,7 +75,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<RandomJoke>() {
             @Override
             public void onResponse(Call<RandomJoke> call, Response<RandomJoke> response) {
-                String textJoke = response.body().getValue().getJoke();
+                String textJoke = response.body().getValue().getJoke().replace("&quot;", "\"");
                 mListener.onJokeReceived(textJoke);
             }
 

@@ -78,7 +78,7 @@ public class TextInputFragment extends Fragment {
         call.enqueue(new Callback<RandomJoke>() {
             @Override
             public void onResponse(Call<RandomJoke> call, Response<RandomJoke> response) {
-                String textJoke = response.body().getValue().getJoke();
+                String textJoke = response.body().getValue().getJoke().replace("&quot;", "\"");
                 mListener.onJokeReceived(textJoke);
             }
 

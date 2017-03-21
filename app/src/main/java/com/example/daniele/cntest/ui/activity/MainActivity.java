@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
 
     @Override
     public void onItemSelected(String fragmentTag) {
-        Fragment myFragment = null;
+        Fragment myFragment;
         if(fragmentTag.equals(TextInputFragment.FRAGMENT_TAG)){
             myFragment = TextInputFragment.newInstance();
         }

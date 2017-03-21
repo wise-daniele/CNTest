@@ -1,6 +1,7 @@
 package com.example.daniele.cntest.rest;
 
 import com.example.daniele.cntest.rest.model.RandomJoke;
+import com.example.daniele.cntest.rest.model.RandomJokes;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -50,6 +51,9 @@ public class RestClient {
                 @Query("firstName") String firstName,
                 @Query("lastName") String lastName
         );
+
+        @GET("random/{jokesNum}")
+        Call<RandomJokes> getJokesList(@Path("jokesNum") int jokesNum);
 
     }
 
