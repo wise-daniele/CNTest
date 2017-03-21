@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">CNTest</string>
+    <string name="text_dismiss">Dismiss</string>
 
     <!-- Main Fragment -->
     <string name="text_random_joke">Random Joke</string>
