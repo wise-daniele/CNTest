@@ -11,6 +11,7 @@
 
     <!-- TextInputFragment -->
     <string name="edit_text_hint">Insert Character Name</string>
+    <string name="name_input_error">"Input text must be in the form \"&lt;name&gt; &lt;lastname&gt;\"</string>
 
 
 </resources>

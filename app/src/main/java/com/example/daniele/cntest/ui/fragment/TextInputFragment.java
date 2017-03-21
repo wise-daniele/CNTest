@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -54,9 +55,11 @@ public class TextInputFragment extends Fragment {
         mButtonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 String name = mEditTextName.getText().toString().trim();
+
                 if(!TextUtils.isNameValid(name)){
-                    showErrorDialog();
+                    mLayoutInputName.setError(getResources().getString(R.string.name_input_error));
                 }
                 else{
                     String[] nameSplitted = TextUtils.getNameSplitted(name);
@@ -87,16 +90,12 @@ public class TextInputFragment extends Fragment {
         });
     }
 
-    public void showErrorDialog(){
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Error")
-                .setMessage("Input text must be in the form \"<name> <lastname>\"")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+    private void hideKeyboard() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
