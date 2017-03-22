@@ -96,7 +96,7 @@ public class NeverEndingListFragment extends Fragment{
                     mJokesList.add(null);
                 }
                 else{
-                    mJokesList.addAll(mJokesList.size() - 2, jokes.getValue());
+                    mJokesList.addAll(mJokesList.size() - 1, jokes.getValue());
                 }
                 mJokesAdapter.setJokesList(mJokesList);
                 mJokesAdapter.notifyDataSetChanged();
